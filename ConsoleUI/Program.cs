@@ -20,10 +20,22 @@ namespace ConsoleUI
 
             CarProductManager carProductManager = new CarProductManager(new EfCarProductDal());
 
-            foreach (var car in carProductManager.GetCarDetails())
+            var result = carProductManager.GetCarDetails();
+
+            if (result.Success)
             {
-                Console.WriteLine(car.CarName+"---"+car.DailyPrice+"---"+car.BrandName+"---"+car.ColorName);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.CarName + "---" + car.DailyPrice + "---" + car.BrandName + "---" + car.ColorName);
+                }
             }
+
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+            
 
 
 

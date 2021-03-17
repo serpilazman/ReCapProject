@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using Core.Utilities.Results;
+using Entities;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ namespace Business.Abstract
 {
   public  interface ICarProductService
     {
-        List<Car> GetAll();
-        List<Car> GetById(int Id);
-        List<Car> GetCarsByBrandId(int Id);
-        List<Car> GetCarsByColorId(int Id);
-        void Add(Car car);        
-        void Update(Car car);
-        void Delete(Car car);
-        List<CarDetailDto> GetCarDetails();
+        IDataResult<List<Car>> GetAll();//IDataResult-->durumu,mesajı ve döndürülecek listeyi içeren bir yapı
+        IDataResult< Car> GetById(int Id);
+        IDataResult< List<Car>> GetCarsByBrandId(int Id);
+        IDataResult< List<Car>> GetCarsByColorId(int Id);
+        IResult  Add(Car car);   //IResult void metotlar için oluşturuldu,durum ve mesaj bilgisi içeriyor     
+        IResult Update(Car car);
+        IResult Delete(Car car);
+        IDataResult<List<CarDetailDto>> GetCarDetails();
     }
 }
