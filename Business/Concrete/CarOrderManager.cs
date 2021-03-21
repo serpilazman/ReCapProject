@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,29 +18,43 @@ namespace Business.Concrete
             _carOrderDal = carOrderDal;
         }
 
-        public void Add(Order order)
+        public IResult Add(Order order)
         {
+
+            
+           
             _carOrderDal.Add(order);
+
+            return new SuccessResult(Messages.OrderAdded);
         }
 
-        public void Delete(Order order)
+        public IResult Delete(Order order)
         {
             _carOrderDal.Delete(order);
+
+            return new SuccessResult(Messages.OrderDeleted);
         }
 
-        public List<Order> GetAll()
+        public IDataResult<List<Order>> GetAll()
         {
-            return _carOrderDal.GetAll();
+            if (DateTime.Now.Hour==22)
+            {
+                return new ErrorDataResult<List<Order>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Order>>(_carOrderDal.GetAll(),Messages.OrderListed);
+
         }
 
-        public List<Order> GetById(int Id)
+        public IDataResult<List<Order>> GetById(int Id)
         {
-            return _carOrderDal.GetAll(o => o.OrderId == Id);
+            return new SuccessDataResult<List<Order>>(_carOrderDal.GetAll(o => o.OrderId == Id));
         }
 
-        public void Update(Order order)
+        public IResult Update(Order order)
         {
             _carOrderDal.Update(order);
+
+            return new SuccessResult(Messages.OrderUpdated);
         }
     }
 }
