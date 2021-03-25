@@ -82,9 +82,9 @@ namespace Business.Concrete
 
         
 
-        public IDataResult< Car> GetById(int Id)
+        public IDataResult<List<Car>> GetById(int Id)
         {
-            return new SuccessDataResult<Car> (_carProductDal.Get(p => p.Id == Id));
+            return new SuccessDataResult<List<Car>> (_carProductDal.GetAll(p => p.Id == Id));
         }
     }
 }
