@@ -30,7 +30,7 @@ namespace ConsoleUI
             //CarTest();
             //CustomerAddTest();
             //CustomerListTest();
-            //RentACarTest();
+            RentACarTest();
             //RentACarListTest();
 
         }
